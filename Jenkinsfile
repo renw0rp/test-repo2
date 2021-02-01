@@ -5,9 +5,7 @@ pipeline {
     agent any
     stages {
         stage('Init') {
-
             steps {
-               
                     sh """
                         echo "BRANCH NAME: ${env.BRANCH_NAME}"
                         echo "CHANGE_ID: ${env.CHANGE_ID}"
@@ -37,70 +35,36 @@ pipeline {
                         echo "currentBuild.changeSets: ${currentBuild.changeSets}"
                     """
                 }
-            
         }
 
         stage('Build') {
-
-
             environment {
                 gitCreds = 'renw0rp-github-credentials'
             }
-
             steps {
-              
-
-                withSonarQubeEnv(credentialsId: 'sonarqube-token', installationName: 'SonarQube') {
                     sshagent(credentials: [gitCreds]) {
-
                         sh """
-                        echo "DISPLAYING FROM JENKINSFILE"
-                        echo "running ls"
-                        ls
+                            echo "DISPLAYING FROM JENKINSFILE"
+                            echo "running ls"
+                            ls
 
-                        echo "running pwd"
-                        pwd
+                            echo "running pwd"
+                            pwd
 
-                        echo "running git branch"
-                        git branch
+                            echo "running git branch"
+                            git branch
 
-                        echo "running git remote -v"
-                        git remote -v
+                            echo "running git remote -v"
+                            git remote -v
 
 
-            
-                        echo "running git remote -v"
-git remote -v
 
-echo "running git status"
-git status
+                            echo "running git remote -v"
+                            git remote -v
 
-#sbt clean compile assembly sonarScan -Dsonar.branch.name="$BRANCH_NAME"
-
-echo 'Set up upstream branch for local testxxx9 branch and check status'
-git checkout testxxx9 # a bit hacky; Jenkins seems to checkout branch with detached HEAD
-git branch --set-upstream-to=origin/testxxx9 testxxx9
-git config branch.testxxx9.remote origin
-git config branch.testxxx9.merge refs/heads/testxxx9
-
-git branch && git status && git remote -v
-
-echo "$BUILD_DISPLAY_NAME" > build.txt
-
-echo "running ls -Altr"
-ls -Altr
-
-git add build.txt
-
-echo "running git status"
-git status
-
-echo "running git commit"
-git commit -m "Build: ${BUILD_DISPLAY_NAME}"
-
-echo "running git push"
-git push origin testxxx9
-                    """
+                            echo "running git status"
+                            git status
+                        """
                     }
                 }
             }
@@ -108,7 +72,3 @@ git push origin testxxx9
  
     }
 }
-
-
-
-
