@@ -1,4 +1,4 @@
-properties([pipelineTriggers([githubPush()])])
+properties([pollSCM('* * * * *')])
 
 pipeline {
 
