@@ -1,4 +1,4 @@
-properties([pollSCM('* * * * *')])
+properties([pollSCM(scmpoll_spec('* * * * *'))])
 
 pipeline {
 
