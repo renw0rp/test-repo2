@@ -1,5 +1,3 @@
-properties([pollSCM(scmpoll_spec('* * * * *'))])
-
 pipeline {
 
     agent any
