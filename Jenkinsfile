@@ -1,3 +1,5 @@
+properties([pipelineTriggers([gitHubPushTrigger()])])
+
 pipeline {
 
     agent any
